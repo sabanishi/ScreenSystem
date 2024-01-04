@@ -7,5 +7,7 @@
     "keywords": [],
     "license": "MIT",
     "category": "",
-    "dependencies": {}
+    "dependencies": {
+        "com.cysharp.unitask":"2.5.0"
+    }
 }
