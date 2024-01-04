@@ -1,5 +1,11 @@
 {
   "dependencies": {
+    "com.sabanishi.screensystem": {
+      "version": "file:com.sabanishi.screensystem",
+      "depth": 0,
+      "source": "embedded",
+      "dependencies": {}
+    },
     "com.unity.collab-proxy": {
       "version": "2.2.0",
       "depth": 0,

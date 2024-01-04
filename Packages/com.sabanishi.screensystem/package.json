@@ -1,0 +1,11 @@
+{
+    "name": "com.sabanishi.screensystem",
+    "displayName": "Screen System",
+    "version": "1.0.0",
+    "unity": "2022.3",
+    "description": "",
+    "keywords": [],
+    "license": "MIT",
+    "category": "",
+    "dependencies": {}
+}
