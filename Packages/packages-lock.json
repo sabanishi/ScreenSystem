@@ -11,7 +11,9 @@
       "version": "file:com.sabanishi.screensystem",
       "depth": 0,
       "source": "embedded",
-      "dependencies": {}
+      "dependencies": {
+        "com.cysharp.unitask": "2.5.0"
+      }
     },
     "com.unity.collab-proxy": {
       "version": "2.2.0",
