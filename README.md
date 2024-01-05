@@ -43,7 +43,7 @@ https://github.com/sabanishi/ScreenSystem.git?path=/Packages/com.sabanishi.scree
 - 画面遷移を管理する機構です。
 - このコンポーネントを使用する前に、初期化関数`Initialize()`を実行する必要があります。
   - この関数の引数は`Dictionary<Type,GameObject>`となっており、ゲームに使用するScreenの型とそのプレハブを紐づけたDictionaryを渡す必要があります。
-- 画面遷移を行うための関数は**Move()**です。
+- 画面遷移を行うための関数は`Move()`です。
 
 #### ITransitionAnimation
 
