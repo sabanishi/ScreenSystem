@@ -72,6 +72,6 @@ https://github.com/sabanishi/ScreenSystem.git?path=/Packages/com.sabanishi.scree
 8. OpenAnimation
 9. 画面B.Open()
 
-### ライセンス
+## ライセンス
 
 MIT Lincense
