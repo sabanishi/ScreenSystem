@@ -1,23 +1,31 @@
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using Sabanishi.ScreenSystem;
+using TMPro;
 using UniRx;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace Sabanishi.ScreenSystemSample
 {
-    public class TitleScreen : BaseScreen
+    public class ReceiveMessageScreen : BaseScreen
     {
-        [SerializeField] private Button button;
+        [SerializeField] private Button sendMessageScreenButton;
+        [SerializeField] private TMP_Text messageText;
 
         protected override UniTask InitializeInternal(IScreenData data, CancellationToken token)
         {
-            button.OnClickAsObservable().Subscribe(_ =>
+            sendMessageScreenButton.OnClickAsObservable().Subscribe(_ =>
             {
-                //SendMessageScreenへ遷移
                 ScreenTransitionLocator.Instance.Move<SendMessageScreen>(null, null).Forget();
             }).AddTo(gameObject);
+
+            //受け取ったデータを表示
+            if (data is SampleScreenData sampleScreenData)
+            {
+                messageText.text = sampleScreenData.Message;
+            }
+
             return UniTask.CompletedTask;
         }
     }

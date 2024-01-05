@@ -9,18 +9,18 @@ namespace Sabanishi.ScreenSystemSample
     /// <summary>
     /// ScreenTransitionをシングルトンとして公開するためのクラス
     /// </summary>
-    public class ScreenTransitionLocator:MonoBehaviour
+    public class ScreenTransitionLocator : MonoBehaviour
     {
         /**ScreenTypeとResourcesパスを対応させるDict*/
         private readonly Dictionary<Type, string> _screenPathDictionary = new()
         {
-            {typeof(TitleScreen),"TitleScreen"},
-            {typeof(SelectScreen),"SelectScreen"},
-            {typeof(SampleScreenA),"SampleScreenA"},
-            {typeof(SampleScreenB),"SampleScreenB"},
+            { typeof(TitleScreen), "TitleScreen" },
+            { typeof(SendMessageScreen), "SendMessageScreen" },
+            { typeof(ReceiveMessageScreen), "ReceiveMessageScreen" },
         };
-        
+
         private static ScreenTransitionLocator _instance;
+
         public static ScreenTransitionLocator Instance
         {
             get
@@ -29,6 +29,7 @@ namespace Sabanishi.ScreenSystemSample
                 {
                     throw new NullReferenceException("ScreenTransitionLocator is not setup.");
                 }
+
                 return _instance;
             }
         }
@@ -48,11 +49,6 @@ namespace Sabanishi.ScreenSystemSample
             _screenTransition.Initialize(LoadScreenPrefab());
         }
 
-        private void OnDestroy()
-        {
-            _screenTransition.Dispose();
-        }
-
         /// <summary>
         /// ScreenPathDictionaryを元にResourcesフォルダからScreenプレハブを取得する
         /// </summary>
@@ -66,15 +62,17 @@ namespace Sabanishi.ScreenSystemSample
                 {
                     Debug.LogError($"{pair.Value} is not exits in Resources Folder");
                 }
-                dict.Add(pair.Key,prefab);
+
+                dict.Add(pair.Key, prefab);
             }
 
             return dict;
         }
 
-        public async UniTask Move<T>(ITransitionAnimation closeAnimation, ITransitionAnimation openAnimation) where T : IScreen
+        public async UniTask Move<T>(ITransitionAnimation closeAnimation, ITransitionAnimation openAnimation)
+            where T : IScreen
         {
-            await _screenTransition.Move<T>(closeAnimation,openAnimation);
+            await _screenTransition.Move<T>(closeAnimation, openAnimation);
         }
     }
 }

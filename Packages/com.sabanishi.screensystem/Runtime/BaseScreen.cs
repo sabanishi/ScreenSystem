@@ -7,7 +7,7 @@ namespace Sabanishi.ScreenSystem
     /// <summary>
     /// Screenの基底クラス
     /// </summary>
-    public abstract class BaseScreen : MonoBehaviour,IScreen
+    public abstract class BaseScreen : MonoBehaviour, IScreen
     {
         /// <summary>
         /// Screen生成直後に呼ばれる関数
@@ -40,12 +40,12 @@ namespace Sabanishi.ScreenSystem
         {
             await OpenInternal(token);
         }
-        
+
         public GameObject GetGameObject()
         {
             return gameObject;
         }
-        
+
         protected virtual UniTask InitializeInternal(IScreenData data, CancellationToken token)
         {
             return UniTask.CompletedTask;

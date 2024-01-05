@@ -3,11 +3,11 @@ using UnityEngine;
 
 namespace Sabanishi.ScreenSystemSample
 {
-    public class SceneInitializer:MonoBehaviour
+    public class SceneInitializer : MonoBehaviour
     {
         private void Start()
         {
-            ScreenTransitionLocator.Instance.Move<TitleScreen>(null,null).Forget();
+            ScreenTransitionLocator.Instance.Move<TitleScreen>(null, null).Forget();
         }
     }
 }
