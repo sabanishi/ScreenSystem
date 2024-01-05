@@ -69,10 +69,10 @@ namespace Sabanishi.ScreenSystemSample
             return dict;
         }
 
-        public async UniTask Move<T>(ITransitionAnimation closeAnimation, ITransitionAnimation openAnimation,Action<T> setupAction = null)
+        public async UniTask Move<T>(ITransitionAnimation closeAnimation, ITransitionAnimation openAnimation,Action<T> bridgeAction = null)
             where T : IScreen
         {
-            await _screenTransition.Move<T>(closeAnimation, openAnimation,setupAction);
+            await _screenTransition.Move<T>(closeAnimation, openAnimation,bridgeAction);
         }
     }
 }

@@ -16,7 +16,9 @@ namespace Sabanishi.ScreenSystemSample
             button.OnClickAsObservable().Subscribe(_ =>
             {
                 //SendMessageScreenへ遷移
-                ScreenTransitionLocator.Instance.Move<SendMessageScreen>(null, null).Forget();
+                ScreenTransitionLocator.Instance.Move<SendMessageScreen>(
+                    SampleScreenTransitionAnimation.Instance.CloseAnimation, 
+                    SampleScreenTransitionAnimation.Instance.OpenAnimation).Forget();
             }).AddTo(gameObject);
             return UniTask.CompletedTask;
         }

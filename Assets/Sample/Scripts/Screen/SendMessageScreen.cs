@@ -18,14 +18,21 @@ namespace Sabanishi.ScreenSystemSample
         {
             titleScreenButton.OnClickAsObservable().Subscribe(_ =>
             {
-                ScreenTransitionLocator.Instance.Move<TitleScreen>(null, null).Forget();
+                //TitleScreenへ遷移する
+                ScreenTransitionLocator.Instance.Move<TitleScreen>(
+                    SampleScreenTransitionAnimation.Instance.CloseAnimation,
+                    SampleScreenTransitionAnimation.Instance.OpenAnimation).Forget();
             }).AddTo(gameObject);
+
             receiveMessageScreenButton.OnClickAsObservable().Subscribe(_ =>
             {
-                ScreenTransitionLocator.Instance.Move<ReceiveMessageScreen>(null, null, (nextScreen) =>
-                {
-                    nextScreen.SetMessage(inputField.text);
-                }).Forget();
+                //ReceiveMessageScreenへ遷移する
+                ScreenTransitionLocator.Instance.Move<ReceiveMessageScreen>(
+                    SampleScreenTransitionAnimation.Instance.CloseAnimation,
+                    SampleScreenTransitionAnimation.Instance.OpenAnimation,
+                    //遷移先の画面にメッセージを渡すためのデリゲート
+                    nextScreen => nextScreen.SetMessage(inputField.text)
+                ).Forget();
             }).AddTo(gameObject);
 
             return UniTask.CompletedTask;

@@ -7,7 +7,9 @@ namespace Sabanishi.ScreenSystemSample
     {
         private void Start()
         {
-            ScreenTransitionLocator.Instance.Move<TitleScreen>(null, null).Forget();
+            ScreenTransitionLocator.Instance.Move<TitleScreen>(
+                SampleScreenTransitionAnimation.Instance.CloseAnimation,
+                SampleScreenTransitionAnimation.Instance.OpenAnimation).Forget();
         }
     }
 }
