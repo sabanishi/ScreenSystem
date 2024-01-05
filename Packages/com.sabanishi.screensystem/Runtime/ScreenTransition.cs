@@ -27,7 +27,10 @@ namespace Sabanishi.ScreenSystem
             _isTransitioning = false;
         }
 
-        public async UniTask Move<T>(ITransitionAnimation closeAnimation, ITransitionAnimation openAnimation)
+        public async UniTask Move<T>(
+            ITransitionAnimation closeAnimation,
+            ITransitionAnimation openAnimation,
+            Action<T> bridgeAction = null)
             where T : IScreen
         {
             // 画面遷移中は何もしない
@@ -49,8 +52,6 @@ namespace Sabanishi.ScreenSystem
             _cts?.Cancel();
             _cts = new CancellationTokenSource();
 
-            IScreenData screenData = null;
-
             // 現在の画面がある場合は破棄する
             if (_currentScreen != null)
             {
@@ -58,12 +59,13 @@ namespace Sabanishi.ScreenSystem
                 var currentScreenCts = CancellationTokenSource.CreateLinkedTokenSource(_cts.Token,
                     currentScreenObject.GetCancellationTokenOnDestroy());
                 await _currentScreen.Close(currentScreenCts.Token);
+                //画面を閉じるアニメーションを再生する
                 if (closeAnimation != null)
                 {
                     await closeAnimation.Play(currentScreenCts.Token);
                 }
 
-                screenData = await _currentScreen.Dispose(currentScreenCts.Token);
+                await _currentScreen.Dispose(currentScreenCts.Token);
                 GameObject.Destroy(currentScreenObject);
             }
 
@@ -79,7 +81,12 @@ namespace Sabanishi.ScreenSystem
             // 次の画面のセットアップ
             var nextScreenCts = CancellationTokenSource.CreateLinkedTokenSource(_cts.Token,
                 nextScreenObject.GetCancellationTokenOnDestroy());
-            await nextScreen.Initialize(screenData, nextScreenCts.Token);
+
+            await nextScreen.Initialize(nextScreenCts.Token);
+            //前の画面から渡されたデータを伝える
+            bridgeAction?.Invoke(nextScreen);
+
+            //画面を開くアニメーションを再生する
             if (openAnimation != null)
             {
                 await openAnimation.Play(nextScreenCts.Token);

@@ -11,7 +11,7 @@ namespace Sabanishi.ScreenSystemSample
     {
         [SerializeField] private Button button;
 
-        protected override UniTask InitializeInternal(IScreenData data, CancellationToken token)
+        protected override UniTask InitializeInternal(CancellationToken token)
         {
             button.OnClickAsObservable().Subscribe(_ =>
             {

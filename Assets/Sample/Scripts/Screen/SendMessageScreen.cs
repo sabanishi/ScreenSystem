@@ -14,7 +14,7 @@ namespace Sabanishi.ScreenSystemSample
         [SerializeField] private Button receiveMessageScreenButton;
         [SerializeField] private TMP_InputField inputField;
 
-        protected override UniTask InitializeInternal(IScreenData data, CancellationToken token)
+        protected override UniTask InitializeInternal(CancellationToken token)
         {
             titleScreenButton.OnClickAsObservable().Subscribe(_ =>
             {
@@ -22,17 +22,13 @@ namespace Sabanishi.ScreenSystemSample
             }).AddTo(gameObject);
             receiveMessageScreenButton.OnClickAsObservable().Subscribe(_ =>
             {
-                ScreenTransitionLocator.Instance.Move<ReceiveMessageScreen>(null, null).Forget();
+                ScreenTransitionLocator.Instance.Move<ReceiveMessageScreen>(null, null, (nextScreen) =>
+                {
+                    nextScreen.SetMessage(inputField.text);
+                }).Forget();
             }).AddTo(gameObject);
 
             return UniTask.CompletedTask;
-        }
-
-        protected override UniTask<IScreenData> DisposeInternal(CancellationToken token)
-        {
-            //入力された文字列を次の画面に渡す
-            var data = new SampleScreenData(inputField.text);
-            return UniTask.FromResult<IScreenData>(data);
         }
     }
 }

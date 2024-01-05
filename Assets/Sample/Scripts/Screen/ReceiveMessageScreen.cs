@@ -13,20 +13,22 @@ namespace Sabanishi.ScreenSystemSample
         [SerializeField] private Button sendMessageScreenButton;
         [SerializeField] private TMP_Text messageText;
 
-        protected override UniTask InitializeInternal(IScreenData data, CancellationToken token)
+        protected override UniTask InitializeInternal(CancellationToken token)
         {
             sendMessageScreenButton.OnClickAsObservable().Subscribe(_ =>
             {
                 ScreenTransitionLocator.Instance.Move<SendMessageScreen>(null, null).Forget();
             }).AddTo(gameObject);
 
-            //受け取ったデータを表示
-            if (data is SampleScreenData sampleScreenData)
-            {
-                messageText.text = sampleScreenData.Message;
-            }
-
             return UniTask.CompletedTask;
+        }
+        
+        /// <summary>
+        /// メッセージを受け取る
+        /// </summary>
+        public void SetMessage(string message)
+        {
+            messageText.text = message;
         }
     }
 }

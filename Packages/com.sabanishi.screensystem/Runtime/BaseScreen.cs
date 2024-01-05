@@ -12,17 +12,17 @@ namespace Sabanishi.ScreenSystem
         /// <summary>
         /// Screen生成直後に呼ばれる関数
         /// </summary>
-        public async UniTask Initialize(IScreenData data, CancellationToken token)
+        public async UniTask Initialize(CancellationToken token)
         {
-            await InitializeInternal(data, token);
+            await InitializeInternal(token);
         }
 
         /// <summary>
         /// Screen破棄直前に呼ばれる関数
         /// </summary>
-        public async UniTask<IScreenData> Dispose(CancellationToken token)
+        public async UniTask Dispose(CancellationToken token)
         {
-            return await DisposeInternal(token);
+            await DisposeInternal(token);
         }
 
         /// <summary>
@@ -46,14 +46,14 @@ namespace Sabanishi.ScreenSystem
             return gameObject;
         }
 
-        protected virtual UniTask InitializeInternal(IScreenData data, CancellationToken token)
+        protected virtual UniTask InitializeInternal(CancellationToken token)
         {
             return UniTask.CompletedTask;
         }
 
-        protected virtual UniTask<IScreenData> DisposeInternal(CancellationToken token)
+        protected virtual UniTask DisposeInternal(CancellationToken token)
         {
-            return UniTask.FromResult<IScreenData>(null);
+            return UniTask.CompletedTask;
         }
 
         protected virtual UniTask CloseInternal(CancellationToken token)
