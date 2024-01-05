@@ -18,13 +18,34 @@ namespace Sabanishi.ScreenSystem
         private IScreen _currentScreen;
         
         /// <summary>
-        /// 初期化関数
+        /// 初期化処理
         /// </summary>
         /// <param name="screenPrefabDict">Screen型とそのプレハブを対応づけるDictionary</param>
-        public void Setup(Dictionary<Type,GameObject> screenPrefabDict)
+        public void Initialize(Dictionary<Type,GameObject> screenPrefabDict)
         {
             _screenPrefabDict = screenPrefabDict;
             _isTransitioning = false;
+        }
+        
+        /// <summary>
+        /// 破棄処理
+        /// </summary>
+        public void Dispose()
+        {
+            _cts?.Cancel();
+            _cts?.Dispose();
+            _cts = null;
+
+            if (_currentScreen != null)
+            {
+                UniTask.Void(async () =>
+                {
+                    await _currentScreen.Close(CancellationToken.None);
+                    await _currentScreen.Dispose(CancellationToken.None);
+                    GameObject.Destroy(_currentScreen.GetGameObject());
+                    _isTransitioning = false;
+                });
+            }
         }
         
         public async UniTask Move<T>(ITransitionAnimation closeAnimation,ITransitionAnimation openAnimation) where T : IScreen
