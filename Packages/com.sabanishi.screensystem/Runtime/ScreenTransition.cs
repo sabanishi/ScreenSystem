@@ -23,8 +23,13 @@ namespace Sabanishi.ScreenSystem
         /// <param name="screenPrefabDict">Screen型とそのプレハブを対応づけるDictionary</param>
         public void Initialize(Dictionary<Type, GameObject> screenPrefabDict)
         {
-            _screenPrefabDict = screenPrefabDict;
+            SetScreenPrefabDict(screenPrefabDict);
             _isTransitioning = false;
+        }
+
+        public void SetScreenPrefabDict(Dictionary<Type, GameObject> screenPrefabDict)
+        {
+            _screenPrefabDict = screenPrefabDict;
         }
 
         public async UniTask Move<T>(
