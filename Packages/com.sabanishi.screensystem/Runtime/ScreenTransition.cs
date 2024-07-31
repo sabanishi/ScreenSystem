@@ -16,6 +16,7 @@ namespace Sabanishi.ScreenSystem
 
         private CancellationTokenSource _cts;
         private IScreen _currentScreen;
+        public IScreen CurrentScreen => _currentScreen;
 
         /// <summary>
         /// 初期化処理
