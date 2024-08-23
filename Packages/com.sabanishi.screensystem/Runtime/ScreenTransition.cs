@@ -13,6 +13,7 @@ namespace Sabanishi.ScreenSystem
     {
         private Dictionary<Type, GameObject> _screenPrefabDict;
         private bool _isTransitioning;
+        public bool IsTransitioning => _isTransitioning;
 
         private CancellationTokenSource _cts;
         private IScreen _currentScreen;
