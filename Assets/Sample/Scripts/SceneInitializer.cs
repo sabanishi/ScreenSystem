@@ -7,7 +7,12 @@ namespace Sabanishi.ScreenSystemSample
     {
         private void Start()
         {
-            ScreenTransitionLocator.Instance.Move<TitleScreen>(
+            var topLayerTransitioner = new ScreenTransitionerLocator();
+            topLayerTransitioner.Initialize();
+            var to = ScreenGenerator.Generate<TitleScreen>();
+            
+            ScreenTransitionerLocator.Instance.TopLayerTransitioner.Move<TitleScreen>(
+                to,
                 SampleScreenTransitionAnimation.Instance.CloseAnimation,
                 SampleScreenTransitionAnimation.Instance.OpenAnimation).Forget();
         }

@@ -1,14 +1,14 @@
 using System.Threading;
 using Cysharp.Threading.Tasks;
-using Sabanishi.ScreenSystem;
 using TMPro;
 using UniRx;
 using UnityEngine;
 using UnityEngine.UI;
+using Screen = Sabanishi.ScreenSystem.Screen;
 
 namespace Sabanishi.ScreenSystemSample
 {
-    public class ReceiveMessageScreen : BaseScreen
+    public class ReceiveMessageScreen : Screen
     {
         [SerializeField] private Button sendMessageScreenButton;
         [SerializeField] private TMP_Text messageText;
@@ -18,7 +18,9 @@ namespace Sabanishi.ScreenSystemSample
             sendMessageScreenButton.OnClickAsObservable().Subscribe(_ =>
             {
                 //SendMessageScreenへ遷移
-                ScreenTransitionLocator.Instance.Move<SendMessageScreen>(
+                var to = ScreenGenerator.Generate<SendMessageScreen>();
+                ScreenTransitionerLocator.Instance.TopLayerTransitioner.Move<SendMessageScreen>(
+                    to,
                     SampleScreenTransitionAnimation.Instance.CloseAnimation, 
                     SampleScreenTransitionAnimation.Instance.OpenAnimation).Forget();
             }).AddTo(gameObject);

@@ -1,14 +1,14 @@
 using System.Threading;
 using Cysharp.Threading.Tasks;
-using Sabanishi.ScreenSystem;
 using TMPro;
 using UniRx;
 using UnityEngine;
 using UnityEngine.UI;
+using Screen = Sabanishi.ScreenSystem.Screen;
 
 namespace Sabanishi.ScreenSystemSample
 {
-    public class SendMessageScreen : BaseScreen
+    public class SendMessageScreen : Screen
     {
         [SerializeField] private Button titleScreenButton;
         [SerializeField] private Button receiveMessageScreenButton;
@@ -19,7 +19,9 @@ namespace Sabanishi.ScreenSystemSample
             titleScreenButton.OnClickAsObservable().Subscribe(_ =>
             {
                 //TitleScreenへ遷移する
-                ScreenTransitionLocator.Instance.Move<TitleScreen>(
+                var to = ScreenGenerator.Generate<TitleScreen>();
+                ScreenTransitionerLocator.Instance.TopLayerTransitioner.Move<TitleScreen>(
+                    to,
                     SampleScreenTransitionAnimation.Instance.CloseAnimation,
                     SampleScreenTransitionAnimation.Instance.OpenAnimation).Forget();
             }).AddTo(gameObject);
@@ -27,11 +29,13 @@ namespace Sabanishi.ScreenSystemSample
             receiveMessageScreenButton.OnClickAsObservable().Subscribe(_ =>
             {
                 //ReceiveMessageScreenへ遷移する
-                ScreenTransitionLocator.Instance.Move<ReceiveMessageScreen>(
-                    SampleScreenTransitionAnimation.Instance.CloseAnimation,
-                    SampleScreenTransitionAnimation.Instance.OpenAnimation,
+                var to = ScreenGenerator.Generate<ReceiveMessageScreen>();
+                ScreenTransitionerLocator.Instance.TopLayerTransitioner.Move<ReceiveMessageScreen>(
+                    to,
                     //遷移先の画面にメッセージを渡すためのデリゲート
-                    nextScreen => nextScreen.SetMessage(inputField.text)
+                    nextScreen => nextScreen.SetMessage(inputField.text),
+                    SampleScreenTransitionAnimation.Instance.CloseAnimation,
+                    SampleScreenTransitionAnimation.Instance.OpenAnimation
                 ).Forget();
             }).AddTo(gameObject);
 
