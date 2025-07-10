@@ -58,7 +58,7 @@ https://github.com/sabanishi/ScreenSystem.git?path=/Packages/com.sabanishi.scree
 
 - そのため、下記のようにScreenに別のScreenTransitionerインスタンスを持たせ、**親Screen**が**子Screen**を管理できるようにします。
 
-  ![image5.png](images/image5.png)
+  ![image6.png](images/image6.png)
 
 ### 4. 画面遷移を実現するための仕組み
 
