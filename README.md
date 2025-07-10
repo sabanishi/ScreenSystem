@@ -62,7 +62,7 @@ https://github.com/sabanishi/ScreenSystem.git?path=/Packages/com.sabanishi.scree
 
 ### 4. 画面遷移を実現するための仕組み
 
-- 前節までの仕組みにより、Screenオブジェクトを管理する仕組みが実装できました。この章では、**Screen間を移動する仕組み**を考えます。
+- 前節までの仕組みにより、Screenオブジェクトを管理する仕組みが実装できました。この節では、**Screen間を移動する仕組み**を考えます。
 - Screenの移動はScreenTransitionerのメソッドを使って行います。
 - 移動用メソッドには3つの種類があります。
   - **Jump**: 遷移前のScreenを破棄して遷移します。後述するBackを行う必要がない時に使用します。
